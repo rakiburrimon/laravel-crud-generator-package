@@ -1,0 +1,13 @@
+<?php
+
+namespace {{namespace}};
+
+use Illuminate\Database\Eloquent\Model;
+{{imports}}
+
+class {{class}} extends Model
+{
+    protected $fillable = {{fillable}};
+
+    {{relations}}
+}

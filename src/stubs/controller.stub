@@ -1,0 +1,49 @@
+<?php
+
+namespace {{namespace}};
+
+use {{fullModelClass}} as {{model}};
+use {{requestNamespace}};
+use Illuminate\Http\Request;
+
+class {{class}} extends Controller
+{
+    public function index()
+    {
+        ${{modelPlural}} = {{model}}::all();
+        return view('{{modelPlural}}.index', compact('{{modelPlural}}'));
+    }
+
+    public function create()
+    {
+        return view('{{modelPlural}}.create');
+    }
+
+    public function store({{requestClass}} $request)
+    {
+        ${{modelVariable}} = {{model}}::create($request->validated());
+        return redirect()->route('{{modelPlural}}.show', ${{modelVariable}});
+    }
+
+    public function show({{model}} ${{modelVariable}})
+    {
+        return view('{{modelPlural}}.show', compact('{{modelVariable}}'));
+    }
+
+    public function edit({{model}} ${{modelVariable}})
+    {
+        return view('{{modelPlural}}.edit', compact('{{modelVariable}}'));
+    }
+
+    public function update({{requestClass}} $request, {{model}} ${{modelVariable}})
+    {
+        ${{modelVariable}}->update($request->validated());
+        return redirect()->route('{{modelPlural}}.show', ${{modelVariable}});
+    }
+
+    public function destroy({{model}} ${{modelVariable}})
+    {
+        ${{modelVariable}}->delete();
+        return redirect()->route('{{modelPlural}}.index');
+    }
+}

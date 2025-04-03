@@ -1,0 +1,15 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>Create New {{model}}</h1>
+
+    <form action="{{ route('{{modelPlural}}.store') }}" method="POST">
+        @csrf
+
+        {{formFields}}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+@endsection

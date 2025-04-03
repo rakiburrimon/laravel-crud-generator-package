@@ -1,0 +1,37 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>{{model}} List</h1>
+    <a href="{{ route('{{modelPlural}}.create') }}" class="btn btn-primary mb-3">Create New</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                @foreach(${{modelPlural}}->first()->getAttributes() as $key => $value)
+                    @if(!in_array($key, ['id', 'created_at', 'updated_at']))
+                        <th>{{ ucfirst($key) }}</th>
+                    @endif
+                @endforeach
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(${{modelPlural}} as ${{modelVariable}})
+                <tr>
+                    {{fields}}
+                    <td>
+                        <a href="{{ route('{{modelPlural}}.show', ${{modelVariable}}) }}" class="btn btn-info">View</a>
+                        <a href="{{ route('{{modelPlural}}.edit', ${{modelVariable}}) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('{{modelPlural}}.destroy', ${{modelVariable}}) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endsection
